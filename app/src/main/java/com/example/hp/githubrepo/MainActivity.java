@@ -65,14 +65,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gb.enqueue(new Callback<GitBeans>() {
             @Override
             public void onResponse(@NonNull Call<GitBeans> call, @NonNull Response<GitBeans> response) {
+
                 GitBeans beans = response.body();
                 assert beans != null;
-                textView.setText("Public repo: " + beans.getPublicRepos().toString());
-                textView2.setText("Login: "+ beans.getLogin().toString());
-               // textView3.setText("Bio: "+beans.getBio().toString());
-                textView4.setText("Followers: " +beans.getFollowers().toString());
-                textView5.setText("Following: "+beans.getFollowing().toString());
-
+                try {
+                    textView.setText("Public repo: " + beans.getPublicRepos().toString());
+                    textView2.setText("Login: " + beans.getLogin().toString());
+                    // textView3.setText("Bio: "+beans.getBio().toString());
+                    textView4.setText("Followers: " + beans.getFollowers().toString());
+                    textView5.setText("Following: " + beans.getFollowing().toString());
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"INVALID USERNAME",Toast.LENGTH_SHORT).show();
+                    textView.setText("");
+                    textView2.setText("");
+                    textView4.setText("");
+                    textView5.setText("");
+                }
 
             }
 
